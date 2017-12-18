@@ -41,10 +41,13 @@
                 var btnLast = $('<div/>').text(settings.last).click(function () { if ($(this).hasClass('disabled')) return false; currentPage = totalpages - 1; navigate(currentPage); }).addClass('btn');
                 var inputPage = $('<input/>').attr('type', 'text').keydown(function (e) {
                     if (isTextSelected(inputPage)) inputPage.val('');
-                    if (e.which >= 48 && e.which < 58) {
+                    if ( (e.which >= 48 && e.which < 58) ) {
                         var value = parseInt(inputPage.val() + (e.which - 48));
                         if (!(value > 0 && value <= totalpages)) e.preventDefault();
-                    } else if (!(e.which == 8 || e.which == 46)) e.preventDefault();
+                    } else if (e.which >= 96 && e.which < 106) {
+                        var value = parseInt(inputPage.val() + (e.which - 96));
+                        if (!(value > 0 && value <= totalpages)) e.preventDefault();
+                    } else if (!(e.which == 8 || e.which == 35 || e.which == 36 || e.which == 37 || e.which == 39 || e.which == 46)) e.preventDefault();
                 });
                 var btnGo = $('<input/>').attr('type', 'button').attr('value', settings.go).addClass('btn').click(function () { if (inputPage.val() == '') return false; else { currentPage = parseInt(inputPage.val()) - 1; navigate(currentPage); } });
                 container.append(btnFirst).append(btnPrev).append(list).append(btnNext).append(btnLast).append($('<div/>').addClass('short').append(inputPage).append(btnGo));
